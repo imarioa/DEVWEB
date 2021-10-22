@@ -1,7 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-import Cidade from './components/Cidade'
 import Votacao from './votacao/VotacaoCidades'
 
 const root = document.getElementById('root');
