@@ -27,7 +27,7 @@ export default class Create extends Component{
         const novoAluno = {nome:this.state.nome, curso:this.state.curso, IRA:this.state.IRA}
 
 
-        axios.post('http://localhost:3002/alunos/register', novoAluno)
+        axios.post('http://localhost:3002/estudantes/register', novoAluno)
         .then(
             (response)=>{
                 alert('Aluno: ' + response.data.nome + ' inserido com sucesso!')

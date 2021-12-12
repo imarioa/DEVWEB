@@ -23,7 +23,7 @@ export default class List extends Component{
     }
 
     componentDidMount(){
-        axios.get('http://localhost:3002/alunos/list')
+        axios.get('http://localhost:3002/estudantes/list')
         .then(
             (res)=>{
                 this.setState({alunos:res.data})
@@ -74,7 +74,7 @@ class TableRow extends Component{
         this.apagar = this.apagar.bind(this)
     }
     apagar(){
-        axios.delete('http://localhost:3002/alunos/delete/'+this.props.aluno._id)
+        axios.delete('http://localhost:3002/estudantes/delete/'+this.props.aluno._id)
         .then(
             (response)=>{
                 alert('Aluno apagado!')

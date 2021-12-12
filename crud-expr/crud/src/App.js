@@ -1,11 +1,19 @@
 import React, { Component } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
+import { useParams, useSearchParams } from "react-router-dom";
+
 
 import Create from './components/Create'
 import Home from './components/Home'
 import List from './components/List'
 import Edit from './components/Edit'
+import GetId from './components/GetID';
+
+function Invoice(){
+  let {id} = useParams();
+  return <h1>Invoice {id}</h1>;
+}
 
 export default class App extends Component {
   render() {
@@ -31,10 +39,10 @@ export default class App extends Component {
 
         <h2>Projeto CRUD</h2> <br />
         <Routes>
-          <Route exact path='/' element={<Home />} />
-          <Route exact path='/create' element={<Create />} />
-          <Route exact path='/list' element={<List />} />
-          <Route exact path="/edit/:id" element={<Edit/>}/>
+          <Route  path='/' element={<Home />} />
+          <Route  path='/create' element={<Create />} />
+          <Route  path='/list' element={<List />} />
+          <Route  path="/edit/:id" element={<GetId/>}/>
 
         </Routes>
 
