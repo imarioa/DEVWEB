@@ -5,6 +5,8 @@ import {
     updateDoc,
     deleteDoc,
     doc,
+    getDoc,
+    onSnapshot
 } from "firebase/firestore";
 
 
@@ -15,9 +17,23 @@ export default class FirebaseService {
         
         const getEstudantes = async () => {
             let estudantes = []
-            const data = await getDocs(ref)
+            //const data = await getDocs(ref)
+            onSnapshot(ref, (querySnapshot) => {
+                querySnapshot.forEach((doc) => {
+                    const { nome, curso, IRA } = doc.data()
+                    estudantes.push(
+                        {
+                            _id: doc.id,
+                            nome,
+                            curso,
+                            IRA
+                        }
+                    )
+                });
+                callback(estudantes)
+            });
 
-            data.forEach((doc) => {
+            /*data.forEach((doc) => {
                 const { nome, curso, IRA } = doc.data()
                 estudantes.push(
                     {
@@ -27,9 +43,9 @@ export default class FirebaseService {
                         IRA
                     }
                 )
-            });
+            });*/
             console.log(estudantes)
-            callback(estudantes)
+            
         }
         getEstudantes()
     }
@@ -61,15 +77,30 @@ export default class FirebaseService {
             callback("nok")
         }
     }
-    static retrieve = () => {
+    static retrieve = (firestore, callback, id) => {
+        const userID = async (_id) => {
+            const userDoc = doc(firestore, "estudantes", _id);
+            const data = await getDoc(userDoc);
+            if(data.exists()){
+                const estudante = {
+                    nome: data.data().nome,
+                    curso: data.data().curso,
+                    IRA: data.data().IRA
+
+                }
+                callback(estudante)
+            }else{
+                callback(null)
+            }
+        };
+        userID(id)
 
     }
     static delete = (firestore, callback, id) => {
         const deleteUser = async (_id) => {
-                const userDoc = doc(firestore, "estudantes", _id);
+            const userDoc = doc(firestore, "estudantes", _id);
             await deleteDoc(userDoc);
         };
-        deleteUser(id)
         if(deleteUser(id)){
             callback("ok")
         }else{

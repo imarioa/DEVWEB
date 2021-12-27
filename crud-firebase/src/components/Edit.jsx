@@ -1,13 +1,5 @@
 import React, {Component} from 'react'
-
-import FirebaseContext from '../utils/FirebaseContext'
 import FirebaseService from '../services/FirebaseService'
-
-const EditPage = (props) => (
-    <FirebaseContext.Consumer>
-        {firebase => <Edit firebase={firebase} id={props.id} />}
-    </FirebaseContext.Consumer>
-)
  
 class Edit extends Component{
     
@@ -96,4 +88,4 @@ class Edit extends Component{
         )
     }
 }
-export default EditPage()
+export default Edit

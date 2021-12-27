@@ -1,6 +1,7 @@
 import React from 'react';
 import { useParams } from 'react-router-dom'
 import Edit from './Edit';
+import FirebaseContext from '../utils/FirebaseContext'
 
 function GetId() {
 
@@ -9,7 +10,9 @@ function GetId() {
 
     return (
         <div>
-            <Edit id={id} />
+            <FirebaseContext.Consumer>
+                {firebase => <Edit firebase={firebase} id={id} />}
+            </FirebaseContext.Consumer>
         </div>
     );
 }
